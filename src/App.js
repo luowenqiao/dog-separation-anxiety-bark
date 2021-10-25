@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component} from 'react'
  
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
 import "./App.css"
@@ -9,44 +9,38 @@ class App extends Component {
  
     this.state = {
       recordState: null,
-      audioData:null
+      audioData:null,
+      time:0
     }
   }
-  // start = () => {
-  //   this.setState({
-  //     recordState: RecordState.START
-  //   })
-  // }
 
-  // pause = () => {
-  //   this.setState({
-  //     recordState: RecordState.PAUSE
-  //   })
-  // }
- 
-  // stop = () => {
-  //   this.setState({
-  //     recordState: RecordState.STOP
-  //   })
-  // }
- 
   //audioData contains blob and blobUrl
   onStop = (audioData) => {
     this.setState({
-      audioData: audioData
+      audioData: audioData,
+      recordState: RecordState.START
     })
     console.log('audioData', audioData)
   }
 
+  //Make the audio start when the screen is loaded
   componentDidMount(){
     this.setState({
       recordState: RecordState.START
     })
+    setInterval(this.clip,5000)
   }
-  
+
+  //Make an audio clip
+  clip=()=>{
+    this.setState({
+      recordState: RecordState.STOP
+    })
+  }
+
   render() {
     const { recordState } = this.state
- 
+    
     return (
       <div>
         <h3 className="audioHeader">Audio Input and Output</h3>
@@ -62,9 +56,7 @@ class App extends Component {
           controls
           src={this.state.audioData ? this.state.audioData.url : null}
         ></audio>
-        {/* <button onClick={this.start} className="audioControl">Start</button>
-        <button onClick={this.pause} className="audioControl">Pause</button>
-        <button onClick={this.stop} className="audioControl">Stop</button> */}
+        <button onClick={this.clip} className="audioControl">Make an audio clip</button>
       </div>
     )
   }
