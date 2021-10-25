@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+ 
+import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
+import "./App.css"
+ 
+class App extends Component {
+  constructor(props) {
+    super(props)
+ 
+    this.state = {
+      recordState: null,
+      audioData:null
+    }
+  }
+ 
+  start = () => {
+    this.setState({
+      recordState: RecordState.START
+    })
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  pause = () => {
+    this.setState({
+      recordState: RecordState.PAUSE
+    })
+  }
+ 
+  stop = () => {
+    this.setState({
+      recordState: RecordState.STOP
+    })
+  }
+ 
+  //audioData contains blob and blobUrl
+  onStop = (audioData) => {
+    this.setState({
+      audioData: audioData
+    })
+    console.log('audioData', audioData)
+  }
+ 
+  render() {
+    const { recordState } = this.state
+ 
+    return (
+      <div>
+        <h3 className="audioHeader">Audio Input and Output</h3>
+        <div>
+          <AudioReactRecorder 
+            state={recordState}
+            onStop={this.onStop}
+            backgroundColor="#eeeeee"
+            />
+        </div> 
+        <audio
+          id='audio'
+          controls
+          src={this.state.audioData ? this.state.audioData.url : null}
+        ></audio>
+        <button onClick={this.start} className="audioControl">Start</button>
+        <button onClick={this.pause} className="audioControl">Pause</button>
+        <button onClick={this.stop} className="audioControl">Stop</button>
+      </div>
+    )
+  }
 }
 
 export default App;
