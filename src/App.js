@@ -12,24 +12,23 @@ class App extends Component {
       audioData:null
     }
   }
- 
-  start = () => {
-    this.setState({
-      recordState: RecordState.START
-    })
-  }
+  // start = () => {
+  //   this.setState({
+  //     recordState: RecordState.START
+  //   })
+  // }
 
-  pause = () => {
-    this.setState({
-      recordState: RecordState.PAUSE
-    })
-  }
+  // pause = () => {
+  //   this.setState({
+  //     recordState: RecordState.PAUSE
+  //   })
+  // }
  
-  stop = () => {
-    this.setState({
-      recordState: RecordState.STOP
-    })
-  }
+  // stop = () => {
+  //   this.setState({
+  //     recordState: RecordState.STOP
+  //   })
+  // }
  
   //audioData contains blob and blobUrl
   onStop = (audioData) => {
@@ -38,7 +37,13 @@ class App extends Component {
     })
     console.log('audioData', audioData)
   }
- 
+
+  componentDidMount(){
+    this.setState({
+      recordState: RecordState.START
+    })
+  }
+  
   render() {
     const { recordState } = this.state
  
@@ -57,9 +62,9 @@ class App extends Component {
           controls
           src={this.state.audioData ? this.state.audioData.url : null}
         ></audio>
-        <button onClick={this.start} className="audioControl">Start</button>
+        {/* <button onClick={this.start} className="audioControl">Start</button>
         <button onClick={this.pause} className="audioControl">Pause</button>
-        <button onClick={this.stop} className="audioControl">Stop</button>
+        <button onClick={this.stop} className="audioControl">Stop</button> */}
       </div>
     )
   }
