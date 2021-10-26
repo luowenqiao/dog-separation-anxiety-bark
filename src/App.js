@@ -12,37 +12,61 @@ class App extends Component {
       audioData:null
     }
   }
-  // start = () => {
-  //   this.setState({
-  //     recordState: RecordState.START
-  //   })
-  // }
 
-  // pause = () => {
-  //   this.setState({
-  //     recordState: RecordState.PAUSE
-  //   })
-  // }
+  download = (data, filename, type)=> {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+  }
+  start = () => {
+    this.setState({
+      recordState: RecordState.START
+    })
+  }
+
+  pause = () => {
+    this.setState({
+      recordState: RecordState.PAUSE
+    })
+  }
  
-  // stop = () => {
-  //   this.setState({
-  //     recordState: RecordState.STOP
-  //   })
-  // }
+  stop = () => {
+    this.setState({
+      recordState: RecordState.STOP
+    })
+  }
  
   //audioData contains blob and blobUrl
   onStop = (audioData) => {
     this.setState({
       audioData: audioData
     })
-    console.log('audioData', audioData)
+    console.log('audioData', audioData);
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
+    var dateTime = date+'_'+time;
+    this.download(audioData,dateTime+".wav","audio/wav");
   }
 
-  componentDidMount(){
-    this.setState({
-      recordState: RecordState.START
-    })
-  }
+  // componentDidMount(){
+  //   this.setState({
+  //     recordState: RecordState.START
+  //   })
+  // }
   
   render() {
     const { recordState } = this.state
@@ -62,9 +86,9 @@ class App extends Component {
           controls
           src={this.state.audioData ? this.state.audioData.url : null}
         ></audio>
-        {/* <button onClick={this.start} className="audioControl">Start</button>
+        <button onClick={this.start} className="audioControl">Start</button>
         <button onClick={this.pause} className="audioControl">Pause</button>
-        <button onClick={this.stop} className="audioControl">Stop</button> */}
+        <button onClick={this.stop} className="audioControl">Stop and Save</button>
       </div>
     )
   }
