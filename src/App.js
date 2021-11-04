@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
 import uniqid from 'uniqid'
 import "./App.css"
-
  
 class App extends Component {
   constructor(props) {
@@ -12,7 +11,10 @@ class App extends Component {
       recordState: null,
       audioData:null,
       randomKey:"",
-      contextName:"e"
+      contextName:"e",
+
+      time: 0,
+      on: false
     }
     this.onChangeValue = this.onChangeValue.bind(this);
   }
@@ -39,6 +41,15 @@ class App extends Component {
     this.setState({
       recordState: RecordState.START
     })
+
+    if (this.state.on) {
+      clearInterval(this.timer);
+    } else {
+      this.timer = setInterval(() => {
+          this.setState({time: this.state.time+1})
+      }, 10)
+    }
+    this.setState({on: !this.state.on})
   }
 
   pause = () => {
@@ -49,8 +60,11 @@ class App extends Component {
  
   stop = () => {
     this.setState({
-      recordState: RecordState.STOP
+      recordState: RecordState.STOP,
+      time:0,
+      on:false
     })
+    clearInterval(this.timer);
   }
  
   //audioData contains blob and blobUrl
@@ -83,13 +97,27 @@ class App extends Component {
       randomKey:uniqid()
     })
   }
+
+  formatTime(t = 0) {
+    const msec = this.appendZero(Number.parseInt(t % 100)),
+    sec = this.appendZero(Number.parseInt(t/100%60)),
+     min = this.appendZero(Number.parseInt(t/6000%60)),
+     hour = this.appendZero(Number.parseInt(t/360000));
+
+    return `${hour}:${min}:${sec}.${msec}`;
+  }
+  appendZero = n=>n.toLocaleString({},{minimumIntegerDigits:2});
   
   render() {
     const { recordState } = this.state
+    var time = this.formatTime(this.state.time);
  
     return (
       <div className = "wrapper">
+        {/* title */}
         <h2 className="audioHeader">A Recording Tool for Dog Barks - Bark Buddy</h2>
+
+        {/* controls */}
         <div className="conditionInput" onChange={this.onChangeValue}>
           <b style={{paddingLeft:'10px'}}>Please select a context:</b>
           <label><input name="context" type="radio" value="e" defaultChecked/>Excitement </label> 
@@ -98,16 +126,21 @@ class App extends Component {
         </div>
         <div className = "audioControllers">
           <button onClick={this.start} className="btn">Start</button>
-          <button onClick={this.pause} className="btn">Pause</button>
+          {/* <button onClick={this.pause} className="btn">Pause</button> */}
           <button onClick={this.stop} className="btn">Stop and Save</button>
         </div>
         <div className = "audioData">
+          <h4 className="time_displayer">{time}</h4>
           <audio
             id='audio'
             controls
             src={this.state.audioData ? this.state.audioData.url : null}
           ></audio>
-        </div> 
+        </div>
+
+        
+
+        {/* vis */} 
         <div className = "audioRecorder">
           <AudioReactRecorder 
             state={recordState}
@@ -115,6 +148,8 @@ class App extends Component {
             backgroundColor="#eeeeee"
             />
         </div>
+
+        {/* instructions */}
         <div className="instructions">
           <b>Instructions:</b>
           <ol>
