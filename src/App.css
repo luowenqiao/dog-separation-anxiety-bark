@@ -1,9 +1,43 @@
-/* .audioHeader{
+.audioHeader{
   text-align: center;
-} */
-.audioControl{
-  background-color: lightskyblue;
-  border-radius: 5px;
-  margin:0 10px;
-  height:30px;
+  padding-bottom: 10px;
+  border-bottom: #eeeeee 1px solid;
+}
+.audioControllers,.audioRecorder,.conditionInput,.audioData{
+  margin: 14px 0;
+  text-align: center;
+}
+
+.instructions{
+  padding-top: 10px;
+  margin-left: 20px;
+  border-top: #eeeeee 1px solid;
+}
+
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 5px 15px 5px 15px;
+  text-decoration: none;
+  border: none;
+  margin:0 5px;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
 }
