@@ -3,9 +3,6 @@
   width: 100vw;
   height: 100vh;
   background-color: black;
-  background-image: url("./img/home.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 .homePage{
   background-image: url("./img/home.svg");
