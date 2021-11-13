@@ -1,5 +1,4 @@
 import {
-    BrowserRouter as Router,
     NavLink
   } from "react-router-dom";
 import "./App.css"
@@ -11,8 +10,8 @@ export default function Home(){
             <div className="description">
             An effective way to manage your dog’s separation anxiety!
             </div>
-            <div className = "startBtnWrapper">
-                <NavLink to="/startRecording" className="startBtn" 
+            <div className = "generalBtnWrapper">
+                <NavLink to="/audioRecording" className="generalBtn" 
                 style={{
                     color:"white",
                     textDecoration:"none",
