@@ -8,17 +8,18 @@
   background-image: url("./img/home.svg");
   background-size: contain;
   background-repeat: no-repeat;
+  background-position:left bottom;
 }
 
 /* title */
 .barkBuddyTitle{
-  width:40rem;
-  height:14rem;
+  width:54%;
+  height:40%;
   margin:0 auto;
   background-image: url("./img/barkBuddyTitle.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  background-position:0rem 6rem;
+  background-position:bottom;
 }
 
 /* description */
@@ -38,6 +39,7 @@
   height:4rem;
 }
 .generalBtn:hover{
+  cursor: pointer;
   box-shadow: 0px 0px 5px rgba(200, 50, 50, 50);
 }
 

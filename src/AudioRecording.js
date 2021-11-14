@@ -53,7 +53,8 @@ export default class AudioRecording extends React.Component {
                         display:'block',
                         width:"4rem",
                         height:"4rem",
-                        borderRadius:"2rem"
+                        borderRadius:"2rem",
+                        cursor:"pointer"
                     }} />
                 </div>
                         
@@ -71,7 +72,8 @@ export default class AudioRecording extends React.Component {
                         display:'block',
                         width:"4rem",
                         height:"4rem",
-                        borderRadius:"2rem"
+                        borderRadius:"2rem",
+                        cursor:"pointer"
                     }} />
                 </div>
 
